@@ -483,9 +483,9 @@ def train_model():
 
 
 def train_spec_model():
-    model = make_spectogram_convnet_model2()
+    model = make_spectogram_convnet_model1()
     model.summary()
-    checkpoint_filepath = "./nets/spec_convnet2"
+    checkpoint_filepath = "./nets/spec_convnet1"
 
     reduce_lr = keras.callbacks.ReduceLROnPlateau(
         monitor='val_accuracy',
@@ -505,8 +505,8 @@ def train_spec_model():
     history = model.fit(
         spec_train_X, spec_train_Y,
         validation_data=(spec_valid_X, spec_valid_Y),
-        batch_size=128,
-        epochs=50,
+        batch_size=64,
+        epochs=30,
         shuffle=True,
         callbacks=[reduce_lr, model_checkpoint_callback]
     )
@@ -547,8 +547,8 @@ def evaluate_spec_keras_model(model):
 def main():
     #train_model()
     #random_forest()
-    train_spec_model()
-    #random_forest_spec()
+    #train_spec_model()
+    random_forest_spec()
 
 
 if __name__ == '__main__':
